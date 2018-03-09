@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<script type="text/javascript" src="assets/js/paper.js"></script>
+	<script type="text/paperscript" canvas="myCan">
+		// Create a Paper.js Path to draw a line into it:
+		var path = new Path();
+		// Give the stroke a color
+		path.strokeColor = 'blue';
+		var start = new Point(100, 100);
+		// Move to start and draw a line from there
+		path.moveTo(start);
+		// Note the plus operator on Point objects.
+		// PaperScript does that for us, and much more!
+		path.lineTo(start + [ 100, -50 ]);
+		var myCircle = new Path.Circle(new Point(500, 400), 150);
+		myCircle.fillColor = 'yellow';
+	</script>
+<title>Patatap Clone</title>
+</head>
+<body>
+	<canvas id="myCan" resize></canvas>
+</body>
+</html>

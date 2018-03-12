@@ -4,17 +4,185 @@
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	<script type="text/javascript" src="assets/js/paper.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.9/howler.min.js"></script>
 	<script type="text/paperscript" canvas="myCan">
+
+		var keyPressed = {
+			q: {
+				sound: new Howl({
+			    	src: ['sounds/bubbles.mp3']
+				}),
+				color: '#816ccf'
+			},
+			w: {
+				sound: new Howl({
+			    	src: ['sounds/clay.mp3']
+				}),
+				color: '#7ca807'
+			},
+			e: {
+				sound: new Howl({
+			    	src: ['sounds/confetti.mp3']
+				}),
+				color: '#f05e8f'
+			},
+			r: {
+				sound: new Howl({
+			    	src: ['sounds/corona.mp3']
+				}),
+				color: '#ead05d'
+			},
+			t: {
+				sound: new Howl({
+			    	src: ['sounds/dotted-spiral.mp3']
+				}),
+				color: '#060765'
+			},
+			y: {
+				sound: new Howl({
+			    	src: ['sounds/flash-1.mp3']
+				}),
+				color: '#01c23f'
+			},
+			u: {
+				sound: new Howl({
+			    	src: ['sounds/flash-2.mp3']
+				}),
+				color: '#b708b7'
+			},
+			i: {
+				sound: new Howl({
+			    	src: ['sounds/flash-3.mp3']
+				}),
+				color: '#0fa4d6'
+			},
+			o: {
+				sound: new Howl({
+			    	src: ['sounds/glimmer.mp3']
+				}),
+				color: '#2307d2'
+			},
+			p: {
+				sound: new Howl({
+			    	src: ['sounds/moon.mp3']
+				}),
+				color: '#c41700'
+			},
+			a: {
+				sound: new Howl({
+			    	src: ['sounds/pinwheel.mp3']
+				}),
+				color: '#da7445'
+			},
+			s: {
+				sound: new Howl({
+			    	src: ['sounds/piston-1.mp3']
+				}),
+				color: '#ea51a4'
+			},
+			d: {
+				sound: new Howl({
+			    	src: ['sounds/piston-2.mp3']
+				}),
+				color: '#f39f76'
+			},
+			f: {
+				sound: new Howl({
+			    	src: ['sounds/piston-3.mp3']
+				}),
+				color: '#338b3f'
+			},
+			g: {
+				sound: new Howl({
+			    	src: ['sounds/prism-1.mp3']
+				}),
+				color: '#d8f998'
+			},
+			h: {
+				sound: new Howl({
+			    	src: ['sounds/prism-2.mp3']
+				}),
+				color: '#a5917e'
+			},
+			j: {
+				sound: new Howl({
+			    	src: ['sounds/prism-3.mp3']
+				}),
+				color: '#de9733'
+			},
+			k: {
+				sound: new Howl({
+			    	src: ['sounds/splits.mp3']
+				}),
+				color: '#812f57'
+			},
+			l: {
+				sound: new Howl({
+			    	src: ['sounds/squiggle.mp3']
+				}),
+				color: '#08dff1'
+			},
+			z: {
+				sound: new Howl({
+			    	src: ['sounds/strike.mp3']
+				}),
+				color: '#4a3fa9'
+			},
+			x: {
+				sound: new Howl({
+			    	src: ['sounds/suspension.mp3']
+				}),
+				color: '#a95b0c'
+			},
+			c: {
+				sound: new Howl({
+			    	src: ['sounds/timer.mp3']
+				}),
+				color: '#31c5e6'
+			},
+			v: {
+				sound: new Howl({
+			    	src: ['sounds/ufo.mp3']
+				}),
+				color: '#e3637f'
+			},
+			b: {
+				sound: new Howl({
+			    	src: ['sounds/veil.mp3']
+				}),
+				color: '#8d0876'
+			},
+			n: {
+				sound: new Howl({
+			    	src: ['sounds/wipe.mp3']
+				}),
+				color: '#9e722e'
+			},
+			m: {
+				sound: new Howl({
+			    	src: ['sounds/zig-zag.mp3']
+				}),
+				color: '#d6d55c'
+			},
+		}
+
+
+
 		var circles =[];
 		// When user hits key
 		tool.onKeyDown = function(event) {
-			//generate random point in users view
-			var maxPoint = new Point(view.size.width, view.size.height);
-			var randomPoint = Point.random();
-			var myPoint = maxPoint * randomPoint;
-			//make circle
-			var myCircle = new Path.Circle(myPoint, 500);
-			myCircle.fillColor = 'yellow';
+			//if key from a-z
+			if(keyPressed[event.key]){
+				//generate random point in users view
+				var maxPoint = new Point(view.size.width, view.size.height);
+				var randomPoint = Point.random();
+				var myPoint = maxPoint * randomPoint;
+				//make circle
+				var myCircle = new Path.Circle(myPoint, 500);
+				myCircle.fillColor = keyPressed[event.key].color;
+				keyPressed[event.key].sound.play();
+			}
+			
 
 			circles.push(myCircle);
 		};
@@ -22,7 +190,7 @@
 		function onFrame(event) {
 			for( i = 0; i < circles.length; i++){
 				//animate color
-				circles[i].fillColor.hue += 1;
+				circles[i].fillColor.hue += 2;
 				//animate radius
 				circles[i].scale(0.9);
 			}

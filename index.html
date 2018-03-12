@@ -193,6 +193,11 @@
 				circles[i].fillColor.hue += 2;
 				//animate radius
 				circles[i].scale(0.9);
+				if(circles[i].area < 1){
+     			circles[i].remove(); 
+     			circles.splice(i, 1); 
+    			i--;
+    			}
 			}
 		}
 	</script>

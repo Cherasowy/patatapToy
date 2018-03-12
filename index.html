@@ -5,18 +5,28 @@
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	<script type="text/javascript" src="assets/js/paper.js"></script>
 	<script type="text/paperscript" canvas="myCan">
-		// Create a Paper.js Path to draw a line into it:
-		var path = new Path();
-		// Give the stroke a color
-		path.strokeColor = 'blue';
-		var start = new Point(100, 100);
-		// Move to start and draw a line from there
-		path.moveTo(start);
-		// Note the plus operator on Point objects.
-		// PaperScript does that for us, and much more!
-		path.lineTo(start + [ 100, -50 ]);
-		var myCircle = new Path.Circle(new Point(500, 400), 150);
-		myCircle.fillColor = 'yellow';
+		var circles =[];
+		// When user hits key
+		tool.onKeyDown = function(event) {
+			//generate random point in users view
+			var maxPoint = new Point(view.size.width, view.size.height);
+			var randomPoint = Point.random();
+			var myPoint = maxPoint * randomPoint;
+			//make circle
+			var myCircle = new Path.Circle(myPoint, 500);
+			myCircle.fillColor = 'yellow';
+
+			circles.push(myCircle);
+		};
+		// animation function
+		function onFrame(event) {
+			for( i = 0; i < circles.length; i++){
+				//animate color
+				circles[i].fillColor.hue += 1;
+				//animate radius
+				circles[i].scale(0.9);
+			}
+		}
 	</script>
 <title>Patatap Clone</title>
 </head>
